@@ -31,7 +31,13 @@ export const Reducer = (state = initialState, action) => {
             }
         case MARK_TASK_AS_COMPLETED:
             return {
-                
+               ...state,
+               tasksList: state.tasksList.map( task => {
+                   if (task.id === action.taskId) {
+                       return { ...task, completed: 1 }
+                   }
+                   return task;
+               } )
             }
         default:
             return state;

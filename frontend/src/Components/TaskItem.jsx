@@ -5,19 +5,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const TaskItem = (props) => {
+    let markTaskAsCompleted = () => {
+        props.markAsCompleted(props.id);
+    }
+
     return (
-        <Card className='mt-2 text-start'>
+        <Card className={props.completed === 1 ? 'mt-2 text-start list-group-item-success' : 'mt-2 text-start'}>
             <Card.Body>
                 <Container>
                     <Row className='align-items-center'>
                         <Col sm={10}>
-                            { props.name }
+                            {props.name}
                         </Col>
-                        <Col sm={2}>
+                        <Col sm={2} className='text-end'>
                             <ButtonGroup>
-                                <Button variant='outline-success'>
-                                    <FontAwesomeIcon icon={faCheck} />
-                                </Button><Button variant='outline-danger'>
+                                {
+                                    props.completed === 0
+                                        ? <Button variant='outline-success' onClick={markTaskAsCompleted}><FontAwesomeIcon icon={faCheck} /></Button>
+                                        : null
+                                }
+                                <Button variant='outline-danger'>
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </Button>
                             </ButtonGroup>

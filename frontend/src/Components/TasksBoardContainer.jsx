@@ -15,6 +15,9 @@ let mapDispatchToProps = (dispatch) => {
         },
         inputTask: (text) => {
             dispatch(inputTaskActionCreator(text));
+        },
+        markAsCompleted: (taskId) => {
+            dispatch(markTaskAsCompletedActionCreator(taskId));
         }
     }
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import { Container, InputGroup, FormControl, Button } from "react-bootstrap";
-import TaskItem from "./TaskItem";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import TaskItem from './TaskItem';
 
 const TasksBoard = (props) => {
     let newTaskName = React.createRef();
@@ -16,7 +16,9 @@ const TasksBoard = (props) => {
         props.addTask();
     }
 
-    let taskItems = props.data.tasksList.map((value) => <TaskItem name={value.name} />)
+    let taskItems = props.data.tasksList.map((value) => <TaskItem id={value.id}
+        name={value.name} completed={value.completed}
+        markAsCompleted={props.markAsCompleted} />)
 
     return (
         <Container>
