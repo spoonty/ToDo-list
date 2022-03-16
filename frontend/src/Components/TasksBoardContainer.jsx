@@ -1,4 +1,4 @@
-import { addTaskActionCreator, inputTaskActionCreator } from "../Redux/reducer";
+import { addTaskActionCreator, inputTaskActionCreator, markTaskAsCompletedActionCreator } from "../Redux/reducer";
 import { connect } from "react-redux";
 import TasksBoard from "./TasksBoard";
 

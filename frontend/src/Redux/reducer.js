@@ -25,6 +25,14 @@ export const Reducer = (state = initialState, action) => {
                 ...state,
                 inputText: action.inputText
             }
+        case DELETE_TASK:
+            return {
+
+            }
+        case MARK_TASK_AS_COMPLETED:
+            return {
+                
+            }
         default:
             return state;
     }
@@ -33,4 +41,4 @@ export const Reducer = (state = initialState, action) => {
 export const addTaskActionCreator = () => ({ type: ADD_TASK })
 export const inputTaskActionCreator = (text) => ({ type: INPUT_TASK, inputText: text })
 export const deleteTaskActionCreator = () => ({ type: DELETE_TASK })
-export const markTaskAsCompletedActionCreator = () => ({ type: MARK_TASK_AS_COMPLETED })
+export const markTaskAsCompletedActionCreator = (taskId) => ({ type: MARK_TASK_AS_COMPLETED, taskId: taskId })
