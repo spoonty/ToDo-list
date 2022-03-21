@@ -25,9 +25,9 @@ function getTasks($connect) {
 
     while ($task = mysqli_fetch_assoc($tasks)) {
         $tasksList[] = [
-            'id' => $task['id'],
+            'id' => (int)$task['id'],
             'name' => $task['name'],
-            'completed' => $task['completed']
+            'completed' => (int)$task['completed']
         ];
     }
 
@@ -38,9 +38,9 @@ function getTask($connect, $id) {
     $task = $connect->query("SELECT * FROM tasks WHERE id = $id")->fetch_assoc();
 
     echo json_encode([
-        'id' => $task['id'],
+        'id' => (int)$task['id'],
         'name' => $task['name'],
-        'completed' => $task['completed']
+        'completed' => (int)$task['completed']
     ]);
 }
 

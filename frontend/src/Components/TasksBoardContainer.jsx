@@ -1,6 +1,17 @@
-import { addTaskActionCreator, inputTaskActionCreator, markTaskAsCompletedActionCreator } from "../Redux/reducer";
+import React from "react";
+import {addTask, deleteTask, getTasksThunkCreator, inputTask, markAsCompleted} from "../Redux/reducer";
 import { connect } from "react-redux";
 import TasksBoard from "./TasksBoard";
+
+class TasksBoardContainer extends React.Component {
+    componentDidMount() {
+        this.props.getTasksThunkCreator();
+    }
+
+    render() {
+        return <TasksBoard {...this.props} />
+    }
+}
 
 let mapStateToProps = (state) => {
     return {
@@ -8,19 +19,5 @@ let mapStateToProps = (state) => {
     }
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        addTask: () => {
-            dispatch(addTaskActionCreator());
-        },
-        inputTask: (text) => {
-            dispatch(inputTaskActionCreator(text));
-        },
-        markAsCompleted: (taskId) => {
-            dispatch(markTaskAsCompletedActionCreator(taskId));
-        }
-    }
-}
-
-const InputLineContainer = connect(mapStateToProps, mapDispatchToProps)(TasksBoard);
-export default InputLineContainer;
+export default TasksBoardContainer = connect(mapStateToProps,
+    {addTask, inputTask, markAsCompleted, deleteTask, getTasksThunkCreator })(TasksBoardContainer);

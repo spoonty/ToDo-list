@@ -9,22 +9,26 @@ const TaskItem = (props) => {
         props.markAsCompleted(props.id);
     }
 
+    let deleteTask = () => {
+        props.deleteTask(props.id);
+    }
+
     return (
         <Card className={props.completed === 1 ? 'mt-2 text-start list-group-item-success' : 'mt-2 text-start'}>
             <Card.Body>
                 <Container>
                     <Row className='align-items-center'>
-                        <Col sm={10}>
+                        <Col sm={9} className='text-start'>
                             {props.name}
                         </Col>
-                        <Col sm={2} className='text-end'>
+                        <Col sm={3} className='text-end'>
                             <ButtonGroup>
                                 {
                                     props.completed === 0
                                         ? <Button variant='outline-success' onClick={markTaskAsCompleted}><FontAwesomeIcon icon={faCheck} /></Button>
                                         : null
                                 }
-                                <Button variant='outline-danger'>
+                                <Button variant='outline-danger' onClick={deleteTask}>
                                     <FontAwesomeIcon icon={faTrashCan} />
                                 </Button>
                             </ButtonGroup>

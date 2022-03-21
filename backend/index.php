@@ -1,6 +1,7 @@
 <?php
 
 header("Content-type: json/application");
+header("Access-Control-Allow-Origin: *");
 require 'headers.php';
 require 'db_connect.php';
 require 'functions.php';

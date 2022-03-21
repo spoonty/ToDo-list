@@ -1,39 +1,19 @@
 import React from "react";
-import { Container, InputGroup, FormControl, Button } from "react-bootstrap";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Container } from "react-bootstrap";
 import TaskItem from './TaskItem';
+import SearchLine from "./SearchLine";
 
 const TasksBoard = (props) => {
-    let newTaskName = React.createRef();
-
-    const inputTaskName = () => {
-        let text = newTaskName.current.value;
-        props.inputTask(text);
-    }
-
-    const addTask = () => {
-        props.addTask();
-    }
-
     let taskItems = props.data.tasksList.map((value) => <TaskItem id={value.id}
         name={value.name} completed={value.completed}
-        markAsCompleted={props.markAsCompleted} />)
+        markAsCompleted={props.markAsCompleted}
+        deleteTask={props.deleteTask} />)
 
     return (
         <Container>
-            <InputGroup className="mt-5 mb-5">
-                <FormControl
-                    placeholder="Input task name"
-                    aria-label="Input task name"
-                    ref={newTaskName}
-                    onChange={inputTaskName}
-                    value={props.data.inputText}
-                />
-                <Button variant="outline-secondary" onClick={addTask}>
-                    <FontAwesomeIcon icon={faPlus} />
-                </Button>
-            </InputGroup>
+            <SearchLine inputText={props.inputText}
+                        inputTask={props.inputTask}
+                        addTask={props.addTask} />
 
             {taskItems}
         </Container>

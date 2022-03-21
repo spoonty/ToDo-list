@@ -1,19 +1,23 @@
+import {API} from "../API/api";
+
+const GET_TASKS = 'GET_TASKS';
 const INPUT_TASK = 'INPUT_TASK';
 const ADD_TASK = 'ADD_TASK';
 const DELETE_TASK = 'DELETE_TASK';
 const MARK_TASK_AS_COMPLETED = 'MARK_TASK_AS_COMPLETED';
 
 let initialState = {
-    tasksList: [
-        { id: 1, name: 'Вымыть посуду', completed: 0 },
-        { id: 2, name: 'Покормить кота', completed: 0 },
-        { id: 3, name: 'Прочитать книгу', completed: 0 }
-    ],
+    tasksList: [],
     inputText: ''
 }
 
 export const Reducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_TASKS:
+            return {
+                ...state,
+                tasksList: [...action.tasks]
+            }
         case ADD_TASK:
             return {
                 ...state,
@@ -26,9 +30,7 @@ export const Reducer = (state = initialState, action) => {
                 inputText: action.inputText
             }
         case DELETE_TASK:
-            return {
-
-            }
+            return state;
         case MARK_TASK_AS_COMPLETED:
             return {
                ...state,
@@ -44,7 +46,17 @@ export const Reducer = (state = initialState, action) => {
     }
 }
 
-export const addTaskActionCreator = () => ({ type: ADD_TASK })
-export const inputTaskActionCreator = (text) => ({ type: INPUT_TASK, inputText: text })
-export const deleteTaskActionCreator = () => ({ type: DELETE_TASK })
-export const markTaskAsCompletedActionCreator = (taskId) => ({ type: MARK_TASK_AS_COMPLETED, taskId: taskId })
+export const getTasks = (tasks) => ({ type: GET_TASKS, tasks })
+export const addTask = () => ({ type: ADD_TASK })
+export const inputTask = (text) => ({ type: INPUT_TASK, inputText: text })
+export const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId: taskId })
+export const markAsCompleted = (taskId) => ({ type: MARK_TASK_AS_COMPLETED, taskId: taskId })
+
+export const getTasksThunkCreator = () => (dispatch) => {
+    API.getTasks()
+        .then (response => {
+            if (response.status === 200) {
+                dispatch(getTasks(response.data));
+            }
+        })
+}
