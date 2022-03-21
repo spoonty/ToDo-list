@@ -22,7 +22,7 @@ export const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 inputText: '',
-                tasksList: [...state.tasksList, { id: 4, name: state.inputText, completed: 0 }]
+                tasksList: [...state.tasksList]
             }
         case INPUT_TASK:
             return {
@@ -57,6 +57,17 @@ export const getTasksThunkCreator = () => (dispatch) => {
         .then (response => {
             if (response.status === 200) {
                 dispatch(getTasks(response.data));
+            }
+        })
+}
+
+export const addTaskThunkCreator = (name) => (dispatch) => {
+    let data = { name }
+    API.addTask(data)
+        .then (response => {
+            if (response.status === 200) {
+                dispatch(addTask());
+                dispatch(getTasksThunkCreator());
             }
         })
 }

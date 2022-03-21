@@ -3,7 +3,7 @@ import {Button, FormControl, InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 
-const SearchLine = (props) => {
+const InputLine = (props) => {
     let newTaskName = React.createRef();
 
     const inputTaskName = () => {
@@ -12,7 +12,7 @@ const SearchLine = (props) => {
     }
 
     const addTask = () => {
-        props.addTask();
+        props.addTaskThunkCreator(newTaskName.current.value);
     }
 
     return(
@@ -31,4 +31,4 @@ const SearchLine = (props) => {
     );
 }
 
-export default SearchLine;
+export default InputLine;

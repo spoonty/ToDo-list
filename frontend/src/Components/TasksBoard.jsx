@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import TaskItem from './TaskItem';
-import SearchLine from "./SearchLine";
+import InputLine from "./InputLine";
 
 const TasksBoard = (props) => {
     let taskItems = props.data.tasksList.map((value) => <TaskItem id={value.id}
@@ -10,10 +10,10 @@ const TasksBoard = (props) => {
         deleteTask={props.deleteTask} />)
 
     return (
-        <Container>
-            <SearchLine inputText={props.inputText}
-                        inputTask={props.inputTask}
-                        addTask={props.addTask} />
+        <Container className='mb-5'>
+            <InputLine inputText={props.data.inputText}
+                       inputTask={props.inputTask}
+                       addTaskThunkCreator={props.addTaskThunkCreator} />
 
             {taskItems}
         </Container>
