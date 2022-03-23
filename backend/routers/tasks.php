@@ -2,18 +2,23 @@
 
 function route($method, $urlData, $formData) {  
     global $connect;
-
+    
     switch ($method) {
         case 'GET':
             if (!sizeof($urlData)) getTasks($connect);
-            else satStatus('404', "Отсутствует путь 'tasks/$urlData[0]'");
+            else setStatus('404', 'Путь отсутствует');
             break;
         case 'POST':
             if (!sizeof($urlData)) addTask($connect, $formData);
-            else satStatus('404', "Отсутствует путь 'tasks/$urlData[0]'");
+            else if (sizeof($urlData) == 2 && $urlData[1] == 'completed') markAsCompleted($connect, $urlData[0]);
+            else setStatus('404', 'Путь отсутствует');
+            break;
+        case 'DELETE':
+            if (sizeof($urlData) == 1) deleteTask($connect, $urlData[0]);
+            else setStatus('404', 'Путь отсутствует');
             break;
         default:
-            setStatus('403', "Вы можете отсылать только GET и POST запросы для 'tasks'");
+            setStatus('403', "Вы можете отсылать только GET, POST и DELETE запросы для 'tasks'");
     }
 
     return;
@@ -52,6 +57,30 @@ function addTask($connect, $formData) {
         getTask($connect, mysqli_insert_id($connect));
     }
     else {
-        setStatus('403', "Название не может быть пустым");
+        setStatus('403', 'Название не может быть пустым');
+    }
+}
+
+function markAsCompleted($connect, $id) {
+    $checkForExist = $connect->query("SELECT id FROM tasks WHERE id = $id")->fetch_assoc();
+
+    if (!is_null($checkForExist)) {
+        $connect->query("UPDATE tasks SET completed = 1 WHERE id = $id");
+        setStatus('200', 'Задача отмечена завершенной');
+    }
+    else {
+        setStatus('404', 'Задачи с id = '.$id.' не найдено');
+    }
+}
+
+function deleteTask($connect, $id) {
+    $checkForExist = $connect->query("SELECT id FROM tasks WHERE id = $id")->fetch_assoc();
+
+    if (!is_null($checkForExist)) {
+        $connect->query("DELETE FROM tasks WHERE id = $id");
+        setStatus('200', 'Задача удалена');
+    }
+    else {
+        setStatus('404', 'Задачи с id = '.$id.' не найдено');
     }
 }
