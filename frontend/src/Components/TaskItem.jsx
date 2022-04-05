@@ -6,11 +6,11 @@ import { faCheck, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const TaskItem = (props) => {
     let markTaskAsCompleted = () => {
-        props.markAsCompleted(props.id);
+        props.markAsCompletedThunkCreator(props.id);
     }
 
     let deleteTask = () => {
-        props.deleteTask(props.id);
+        props.deleteTaskThunkCreator(props.id);
     }
 
     return (

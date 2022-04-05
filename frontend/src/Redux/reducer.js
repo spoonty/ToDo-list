@@ -3,8 +3,6 @@ import {API} from "../API/api";
 const GET_TASKS = 'GET_TASKS';
 const INPUT_TASK = 'INPUT_TASK';
 const ADD_TASK = 'ADD_TASK';
-const DELETE_TASK = 'DELETE_TASK';
-const MARK_TASK_AS_COMPLETED = 'MARK_TASK_AS_COMPLETED';
 
 let initialState = {
     tasksList: [],
@@ -29,18 +27,6 @@ export const Reducer = (state = initialState, action) => {
                 ...state,
                 inputText: action.inputText
             }
-        case DELETE_TASK:
-            return state;
-        case MARK_TASK_AS_COMPLETED:
-            return {
-               ...state,
-               tasksList: state.tasksList.map( task => {
-                   if (task.id === action.taskId) {
-                       return { ...task, completed: 1 }
-                   }
-                   return task;
-               } )
-            }
         default:
             return state;
     }
@@ -49,8 +35,6 @@ export const Reducer = (state = initialState, action) => {
 export const getTasks = (tasks) => ({ type: GET_TASKS, tasks })
 export const addTask = () => ({ type: ADD_TASK })
 export const inputTask = (text) => ({ type: INPUT_TASK, inputText: text })
-export const deleteTask = (taskId) => ({ type: DELETE_TASK, taskId: taskId })
-export const markAsCompleted = (taskId) => ({ type: MARK_TASK_AS_COMPLETED, taskId: taskId })
 
 export const getTasksThunkCreator = () => (dispatch) => {
     API.getTasks()
@@ -67,6 +51,25 @@ export const addTaskThunkCreator = (name) => (dispatch) => {
         .then (response => {
             if (response.status === 200) {
                 dispatch(addTask());
+                dispatch(getTasksThunkCreator());
+            }
+        })
+}
+
+export const markAsCompletedThunkCreator = (id) => (dispatch) => {
+    API.markAsCompleted(id)
+        .then(response => {
+            if (response.status === 200) {
+                dispatch(getTasksThunkCreator());
+            }
+        })
+}
+
+export const deleteTaskThunkCreator = (id) => (dispatch) => {
+    console.log(id)
+    API.deleteTask(id)
+        .then(response => {
+            if (response.status === 200) {
                 dispatch(getTasksThunkCreator());
             }
         })

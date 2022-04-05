@@ -1,10 +1,10 @@
 import React from "react";
 import {
     addTaskThunkCreator,
-    deleteTask,
     getTasksThunkCreator,
     inputTask,
-    markAsCompleted,
+    markAsCompletedThunkCreator,
+    deleteTaskThunkCreator
 } from "../Redux/reducer";
 import { connect } from "react-redux";
 import TasksBoard from "./TasksBoard";
@@ -26,4 +26,5 @@ let mapStateToProps = (state) => {
 }
 
 export default TasksBoardContainer = connect(mapStateToProps,
-    { inputTask, markAsCompleted, deleteTask, getTasksThunkCreator, addTaskThunkCreator })(TasksBoardContainer);
+    { inputTask, deleteTaskThunkCreator, getTasksThunkCreator, addTaskThunkCreator,
+                    markAsCompletedThunkCreator })(TasksBoardContainer);
