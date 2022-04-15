@@ -12,7 +12,8 @@ const InputLine = (props) => {
     }
 
     const addTask = () => {
-        props.addTaskThunkCreator(newTaskName.current.value);
+        let text = newTaskName.current.value;
+        if (text.length > 0) props.addTaskThunkCreator(newTaskName.current.value);
     }
 
     return(

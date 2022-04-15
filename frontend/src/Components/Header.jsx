@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <Navbar bg="warning">
             <Container fluid>
-                <Navbar.Brand className='text-light fw-bold'>ToDo lists</Navbar.Brand>
+                <Navbar.Brand className='text-light fw-bold'>ToDo list</Navbar.Brand>
             </Container>
         </Navbar>
     );

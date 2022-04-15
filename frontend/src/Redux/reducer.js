@@ -19,8 +19,7 @@ export const Reducer = (state = initialState, action) => {
         case ADD_TASK:
             return {
                 ...state,
-                inputText: '',
-                tasksList: [...state.tasksList]
+                inputText: ''
             }
         case INPUT_TASK:
             return {
@@ -66,7 +65,6 @@ export const markAsCompletedThunkCreator = (id) => (dispatch) => {
 }
 
 export const deleteTaskThunkCreator = (id) => (dispatch) => {
-    console.log(id)
     API.deleteTask(id)
         .then(response => {
             if (response.status === 200) {

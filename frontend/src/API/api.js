@@ -5,8 +5,7 @@ const instance = axios.create({
     baseURL,
     headers: {
         "Content-Type": "text/plain"
-    },
-    'X-Requested-With': 'XMLHttpRequest'
+    }
 });
 
 const getTasks = () => {

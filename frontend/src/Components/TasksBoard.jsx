@@ -4,8 +4,10 @@ import TaskItem from './TaskItem';
 import InputLine from "./InputLine";
 
 const TasksBoard = (props) => {
-    let taskItems = props.data.tasksList.map((value) => <TaskItem id={value.id}
-        name={value.name} completed={value.completed}
+    let taskItems = props.data.tasksList.map((value) => <TaskItem
+        id={value.id}
+        name={value.name}
+        completed={value.completed}
         markAsCompletedThunkCreator={props.markAsCompletedThunkCreator}
         deleteTaskThunkCreator={props.deleteTaskThunkCreator} />)
 
